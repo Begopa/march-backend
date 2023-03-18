@@ -5,7 +5,7 @@ import { EmployeesService } from './employees.service';
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
-  @Get('employees:employee_id')
+  @Get('employees/:employee_id')
   getEmployee() {
     return '특정 사원 현재 정보';
   }
