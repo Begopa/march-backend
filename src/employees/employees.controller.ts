@@ -1,4 +1,11 @@
-import { Controller, Get, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpException,
+  Param,
+  ParseIntPipe,
+  Patch,
+} from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 
 @Controller('public')
@@ -6,17 +13,20 @@ export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Get('employees/:employee_id')
-  getEmployee() {
+  getEmployee(@Param('employee_id', ParseIntPipe) employee_id: number) {
+    throw new HttpException('api is broken', 401);
     return '특정 사원 현재 정보';
   }
 
   @Get('employees/jobHistory/:employee_id')
-  getJobHistoryOfEmployee() {
+  getJobHistoryOfEmployee(
+    @Param('employee_id', ParseIntPipe) employee_id: number,
+  ) {
     return '특정 사원 이력';
   }
 
   @Get('department/:department_id')
-  getDepartment() {
+  getDepartment(@Param('department_id', ParseIntPipe) department_id: number) {
     return '부서 및 위치 정보';
   }
 
