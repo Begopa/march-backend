@@ -53,7 +53,7 @@ export class EmployeesController {
   getJobHistoryOfEmployee(
     @Param('employee_id', ParseIntPipe) employee_id: number,
   ) {
-    return '특정 사원 이력';
+    return this.employeesService.findJobHistoryOfEmployee(employee_id);
   }
 
   @Get('department/:department_id')
