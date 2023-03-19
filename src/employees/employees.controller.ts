@@ -1,20 +1,51 @@
-import {
-  Controller,
-  Get,
-  HttpException,
-  Param,
-  ParseIntPipe,
-  Patch,
-} from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Patch } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 
 @Controller('public')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
+  @Get('regions')
+  findAllRegions() {
+    return this.employeesService.findAllRegions();
+  }
+  @Get('regions/:id')
+  findOneRegion(@Param('id') id: number) {
+    return this.employeesService.findOne(id);
+  }
+
+  @Get('countries')
+  findAllCountries() {
+    return this.employeesService.findAllCountries();
+  }
+
+  @Get('locations')
+  findAllLocations() {
+    return this.employeesService.findAllLocations();
+  }
+
+  @Get('departments')
+  findAllDepartments() {
+    return this.employeesService.findAllDepartments();
+  }
+
+  @Get('jobs')
+  findAllJobs() {
+    return this.employeesService.findAllJobs();
+  }
+
+  @Get('employees')
+  findAllEmployees() {
+    return this.employeesService.findAllEmployees();
+  }
+
+  @Get('jobHistory')
+  findAllJobHistory() {
+    return this.employeesService.findAllJobHistory();
+  }
+
   @Get('employees/:employee_id')
   getEmployee(@Param('employee_id', ParseIntPipe) employee_id: number) {
-    throw new HttpException('api is broken', 401);
     return '특정 사원 현재 정보';
   }
 

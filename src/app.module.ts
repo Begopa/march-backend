@@ -6,6 +6,13 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as process from 'process';
+import { Regions } from './entities/regions.entity';
+import { Countries } from './entities/countries.entity';
+import { Locations } from './entities/locations.entity';
+import { Departments } from './entities/departments.entity';
+import { Jobs } from './entities/jobs.entity';
+import { Employees } from './entities/employees.entity';
+import { JobHistory } from './entities/job-history.entity';
 
 @Module({
   imports: [
@@ -20,8 +27,17 @@ import * as process from 'process';
       password: process.env.MYSQL_PASSWORD,
       port: 3306,
       database: 'hr',
-      entities: [],
-      synchronize: true,
+      entities: [
+        Regions,
+        Countries,
+        Locations,
+        Departments,
+        Jobs,
+        Employees,
+        JobHistory,
+      ],
+      synchronize: false,
+      logging: true,
     }),
     EmployeesModule,
   ],
