@@ -56,9 +56,9 @@ export class EmployeesController {
     return this.employeesService.findJobHistoryOfEmployee(employee_id);
   }
 
-  @Get('department/:department_id')
+  @Get('departments/:department_id')
   getDepartment(@Param('department_id', ParseIntPipe) department_id: number) {
-    return '부서 및 위치 정보';
+    return this.employeesService.findDepartmentAndLocation(department_id);
   }
 
   @Patch('department/:department_id')
