@@ -1,9 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class GetRegionResponseType {
-  @ApiProperty({ description: 'The ID of the country' })
+  @ApiProperty({ description: '지역 ID' })
+  @IsNotEmpty()
+  @IsInt()
   region_id: number;
 
-  @ApiProperty({ description: 'The name of the country' })
+  @ApiProperty({ description: '지역 이름' })
+  @IsNotEmpty()
+  @IsString()
   region_name: string;
 }

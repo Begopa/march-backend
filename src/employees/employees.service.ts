@@ -5,10 +5,11 @@ import { Repository } from 'typeorm';
 import { Countries } from '../entities/countries.entity';
 import { Locations } from '../entities/locations.entity';
 import { Departments } from '../entities/departments.entity';
-import { Jobs } from '../entities/jobs.entity';
 import { JobHistory } from '../entities/job-history.entity';
 import { Employees } from '../entities/employees.entity';
 import { GetDepartmentLocationResponseType } from '../types/department-location-response.type';
+import { GetEmployeeResponseType } from '../types/employee-response.type';
+import { GetJobHistoryResponseType } from '../types/jobHistory-response.type';
 
 @Injectable()
 export class EmployeesService {
@@ -17,53 +18,54 @@ export class EmployeesService {
     private regionsRepository: Repository<Regions>,
     @InjectRepository(Countries)
     private countriesRepository: Repository<Countries>,
-
     @InjectRepository(Locations)
     private locationsRepository: Repository<Locations>,
     @InjectRepository(Departments)
     private departmentsRepository: Repository<Departments>,
-    @InjectRepository(Jobs)
-    private jobsRepository: Repository<Jobs>,
     @InjectRepository(Employees)
     private employeesRepository: Repository<Employees>,
     @InjectRepository(JobHistory)
     private jobHistoryRepository: Repository<JobHistory>,
   ) {}
 
-  findAllRegions(): Promise<Regions[]> {
-    return this.regionsRepository.find();
+  /**
+   * 사원 조회
+   * @param id
+   */
+  async findOneEmployee(id: number): Promise<GetEmployeeResponseType> {
+    const employee = await this.employeesRepository.findOneBy({
+      employee_id: id,
+    });
+
+    if (!employee) {
+      throw new HttpException('employee not found', 404);
+    }
+    return employee;
   }
 
-  async findAllCountries(): Promise<Countries[]> {
-    return await this.countriesRepository.find();
-  }
-
-  async findAllLocations(): Promise<Locations[]> {
-    return await this.locationsRepository.find();
-  }
-
-  async findAllDepartments(): Promise<Departments[]> {
-    return await this.departmentsRepository.find();
-  }
-  async findAllJobs(): Promise<Jobs[]> {
-    return await this.jobsRepository.find();
-  }
-  async findAllEmployees(): Promise<Employees[]> {
-    return await this.employeesRepository.find();
-  }
-  async findAllJobHistory(): Promise<JobHistory[]> {
-    return await this.jobHistoryRepository.find();
-  }
-
-  async findOneEmployee(id: number): Promise<Employees> {
-    return await this.employeesRepository.findOneBy({ employee_id: id });
-  }
-  async findJobHistoryOfEmployee(id: number): Promise<JobHistory[]> {
+  /**
+   * 사원 이력 조회
+   * @param id
+   */
+  async findJobHistoryOfEmployee(
+    id: number,
+  ): Promise<GetJobHistoryResponseType[]> {
+    const employee = await this.employeesRepository.findOneBy({
+      employee_id: id,
+    });
+    if (!employee) {
+      throw new HttpException('employee not found', 404);
+    }
     return await this.jobHistoryRepository.find({
       where: { employee_id: id },
       relations: ['department', 'job'],
     });
   }
+
+  /**
+   * 부서 위치 조회
+   * @param id
+   */
   async findDepartmentAndLocation(
     id: number,
   ): Promise<GetDepartmentLocationResponseType> {

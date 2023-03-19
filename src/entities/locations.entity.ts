@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { IsNotEmpty, IsString, IsInt } from 'class-validator';
+import { IsNotEmpty, IsString, IsInt, IsOptional } from 'class-validator';
 import { Countries } from './countries.entity';
 
 @Entity()
@@ -16,10 +16,12 @@ export class Locations {
   location_id: number;
 
   @Column({ type: 'varchar', length: 40, nullable: true })
+  @IsOptional()
   @IsString()
   street_address: string;
 
   @Column({ type: 'varchar', length: 12, nullable: true })
+  @IsOptional()
   @IsString()
   postal_code: string;
 
@@ -29,6 +31,7 @@ export class Locations {
   city: string;
 
   @Column({ type: 'varchar', length: 25, nullable: true })
+  @IsOptional()
   @IsString()
   state_province: string;
 
