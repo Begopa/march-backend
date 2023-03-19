@@ -46,7 +46,7 @@ export class EmployeesController {
 
   @Get('employees/:employee_id')
   getEmployee(@Param('employee_id', ParseIntPipe) employee_id: number) {
-    return '특정 사원 현재 정보';
+    return this.employeesService.findOneEmployee(employee_id);
   }
 
   @Get('employees/jobHistory/:employee_id')

@@ -54,6 +54,9 @@ export class EmployeesService {
     return await this.jobHistoryRepository.find();
   }
 
+  async findOneEmployee(id: number): Promise<Employees> {
+    return await this.employeesRepository.findOneBy({ employee_id: id });
+  }
   findOne(id: number): Promise<Regions> {
     return this.regionsRepository.findOneBy({ region_id: id });
   }
