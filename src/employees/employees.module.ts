@@ -9,6 +9,7 @@ import { Departments } from '../entities/departments.entity';
 import { Jobs } from '../entities/jobs.entity';
 import { Employees } from '../entities/employees.entity';
 import { JobHistory } from '../entities/job-history.entity';
+import { AirDataService } from './air-data.service';
 
 @Module({
   imports: [
@@ -23,6 +24,6 @@ import { JobHistory } from '../entities/job-history.entity';
     ]),
   ],
   controllers: [EmployeesController],
-  providers: [EmployeesService],
+  providers: [EmployeesService, AirDataService],
 })
 export class EmployeesModule {}

@@ -12,10 +12,15 @@ import { GetDepartmentLocationResponseType } from '../types/department-location-
 import { GetEmployeeResponseType } from '../types/employee-response.type';
 import { GetJobHistoryResponseType } from '../types/jobHistory-response.type';
 import { GetSalaryRequestType } from '../types/salary-request.type';
+import { AirDataService } from './air-data.service';
+import { getAirStationsResponseType } from '../types/air-station-response.type';
 
 @Controller('public')
 export class EmployeesController {
-  constructor(private readonly employeesService: EmployeesService) {}
+  constructor(
+    private readonly employeesService: EmployeesService,
+    private readonly airDataService: AirDataService,
+  ) {}
 
   @ApiResponse({
     status: 200,
@@ -60,5 +65,18 @@ export class EmployeesController {
   @Post('department/salary')
   updateDepartmentSalary(@Body() data: GetSalaryRequestType) {
     return this.employeesService.updateSalaryForDepartment(data);
+  }
+
+  @ApiResponse({
+    status: 200,
+    description: '통합대기환경지수 나쁨 이상 측정소 목록조회 성공',
+    type: getAirStationsResponseType,
+  })
+  @ApiOperation({
+    summary: '통합대기환경지수 나쁨 이상 측정소 목록조회',
+  })
+  @Get('air/station')
+  getAirStation() {
+    return this.airDataService.getBadAirStations();
   }
 }
