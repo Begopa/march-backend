@@ -10,7 +10,7 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   const config = new DocumentBuilder()
-    .setTitle('Employee Mange System')
+    .setTitle('Employee Manage System')
     .setDescription('Employee API description')
     .setVersion('1.0.0')
     .build();

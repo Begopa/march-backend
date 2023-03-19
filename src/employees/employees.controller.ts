@@ -1,9 +1,17 @@
-import { Controller, Get, Param, ParseIntPipe, Patch } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { GetDepartmentLocationResponseType } from '../types/department-location-response.type';
 import { GetEmployeeResponseType } from '../types/employee-response.type';
 import { GetJobHistoryResponseType } from '../types/jobHistory-response.type';
+import { GetSalaryRequestType } from '../types/salary-request.type';
 
 @Controller('public')
 export class EmployeesController {
@@ -44,9 +52,13 @@ export class EmployeesController {
     return this.employeesService.findDepartmentAndLocation(department_id);
   }
 
+  @ApiResponse({
+    status: 200,
+    description: '특정부서 급여 인상 저장 성공',
+  })
   @ApiOperation({ summary: '특정부서 급여 인상' })
-  @Patch('department/:department_id')
-  updateDepartmentSalary() {
-    return '특정부서 급여를 특정 비율로 인상 및 사원 정보 업데이트';
+  @Post('department/salary')
+  updateDepartmentSalary(@Body() data: GetSalaryRequestType) {
+    return this.employeesService.updateSalaryForDepartment(data);
   }
 }

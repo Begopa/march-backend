@@ -10,6 +10,7 @@ import { Employees } from '../entities/employees.entity';
 import { GetDepartmentLocationResponseType } from '../types/department-location-response.type';
 import { GetEmployeeResponseType } from '../types/employee-response.type';
 import { GetJobHistoryResponseType } from '../types/jobHistory-response.type';
+import { GetSalaryRequestType } from '../types/salary-request.type';
 
 @Injectable()
 export class EmployeesService {
@@ -116,7 +117,25 @@ export class EmployeesService {
       },
     };
   }
-  findOne(id: number): Promise<Regions> {
-    return this.regionsRepository.findOneBy({ region_id: id });
+
+  /**
+   * 부서 연봉 인상
+   * @param data
+   */
+  async updateSalaryForDepartment(data: GetSalaryRequestType) {
+    const department_id = data.department_id;
+    const percentage = data.percentage;
+
+    const employees = await this.employeesRepository.find({
+      where: { department_id: department_id },
+    });
+
+    // 부서 내 직원 연봉 인상 후 저장
+    for (const employee of employees) {
+      employee.salary *= 1 + percentage / 100;
+      await this.employeesRepository.save(employee);
+    }
+
+    return employees;
   }
 }
