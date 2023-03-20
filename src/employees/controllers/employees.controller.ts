@@ -6,14 +6,14 @@ import {
   ParseIntPipe,
   Post,
 } from '@nestjs/common';
-import { EmployeesService } from './employees.service';
+import { EmployeesService } from '../services/employees.service';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { GetDepartmentLocationResponseType } from '../types/department-location-response.type';
-import { GetEmployeeResponseType } from '../types/employee-response.type';
-import { GetJobHistoryResponseType } from '../types/jobHistory-response.type';
-import { GetSalaryRequestType } from '../types/salary-request.type';
-import { AirDataService } from './air-data.service';
-import { getAirStationsResponseType } from '../types/air-station-response.type';
+import { GetDepartmentLocationResponseType } from '../../types/department-location-response.type';
+import { GetEmployeeResponseType } from '../../types/employee-response.type';
+import { GetJobHistoryResponseType } from '../../types/jobHistory-response.type';
+import { GetSalaryRequestType } from '../../types/salary-request.type';
+import { AirDataService } from '../services/air-data.service';
+import { getAirStationsResponseType } from '../../types/air-station-response.type';
 
 @Controller('public')
 export class EmployeesController {

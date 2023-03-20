@@ -1,16 +1,16 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Regions } from '../entities/regions.entity';
+import { Regions } from '../../entities/regions.entity';
 import { Repository } from 'typeorm';
-import { Countries } from '../entities/countries.entity';
-import { Locations } from '../entities/locations.entity';
-import { Departments } from '../entities/departments.entity';
-import { JobHistory } from '../entities/job-history.entity';
-import { Employees } from '../entities/employees.entity';
-import { GetDepartmentLocationResponseType } from '../types/department-location-response.type';
-import { GetEmployeeResponseType } from '../types/employee-response.type';
-import { GetJobHistoryResponseType } from '../types/jobHistory-response.type';
-import { GetSalaryRequestType } from '../types/salary-request.type';
+import { Countries } from '../../entities/countries.entity';
+import { Locations } from '../../entities/locations.entity';
+import { Departments } from '../../entities/departments.entity';
+import { JobHistory } from '../../entities/job-history.entity';
+import { Employees } from '../../entities/employees.entity';
+import { GetDepartmentLocationResponseType } from '../../types/department-location-response.type';
+import { GetEmployeeResponseType } from '../../types/employee-response.type';
+import { GetJobHistoryResponseType } from '../../types/jobHistory-response.type';
+import { GetSalaryRequestType } from '../../types/salary-request.type';
 
 @Injectable()
 export class EmployeesService {
